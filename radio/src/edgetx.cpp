@@ -1163,6 +1163,8 @@ void edgeTxClose(uint8_t shutdown)
   cancelShutdownAnimation();  // To prevent simulator crash
   MainWindow::instance()->shutdown();
 #if defined(LUA)
+  extern void unloadLuaTools();
+  unloadLuaTools();
   luaUnregisterWidgets();
 #endif
 #endif
