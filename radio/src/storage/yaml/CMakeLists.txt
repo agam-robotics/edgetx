@@ -5,10 +5,9 @@ set(SRC ${SRC} storage/yaml/yaml_tree_walker.cpp
                storage/yaml/yaml_bits.cpp
                storage/yaml/yaml_datastructs.cpp)
 
-if(STORAGE_MODELSLIST)
+if(COLORLCD)
   set(SRC ${SRC} storage/yaml/yaml_labelslist.cpp)
   set(SRC ${SRC} storage/yaml/yaml_modelslist.cpp)
-  add_definitions(-DSTORAGE_MODELSLIST)
 endif()
 
 # Warning: this file must be kept in sync with 'yaml_datastructs.cpp'

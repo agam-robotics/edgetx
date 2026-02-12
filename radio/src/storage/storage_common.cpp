@@ -73,9 +73,6 @@ void preModelLoad()
   }
 
   stopTrainer();
-#if defined(COLORLCD)
-  LayoutFactory::deleteCustomScreens(true);
-#endif
 
   if (needDelay) {
     sleep_ms(200);
@@ -305,10 +302,7 @@ if(g_model.rssiSource) {
 
   referenceModelAudioFiles();
 
-#if defined(COLORLCD)
-  LayoutFactory::loadCustomScreens();
-  ViewMain::instance()->show(true);
-#else
+#if !defined(COLORLCD)
   LOAD_MODEL_BITMAP();
 #endif
 
@@ -339,12 +333,10 @@ void storageFlushCurrentModel()
   }
 }
 
-#if !defined(STORAGE_MODELSLIST)
+#if !defined(COLORLCD)
 void selectModel(uint8_t idx)
 {
-#if !defined(COLORLCD)
   showMessageBox(STR_LOADINGMODEL);
-#endif
   storageFlushCurrentModel();
   storageCheck(true); // force writing of current model data before this is changed
   g_eeGeneral.currModel = idx;

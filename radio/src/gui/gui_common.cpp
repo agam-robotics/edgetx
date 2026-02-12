@@ -1197,7 +1197,7 @@ bool modelHasNotes()
     return true;
   }
 
-#if defined(STORAGE_MODELSLIST)
+#if defined(COLORLCD)
   buf = strAppendFilename(&filename[sizeof(MODELS_PATH)],
                           g_eeGeneral.currModelFilename, LEN_MODEL_FILENAME);
   strcpy(buf, TEXT_EXT);

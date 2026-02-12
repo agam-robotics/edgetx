@@ -149,6 +149,7 @@ void applyDefaultTemplate()
 
 #if defined(COLORLCD)
   g_model.resetScreenData();
+  LayoutFactory::deleteCustomScreens(true);
   LayoutFactory::loadDefaultLayout();
 #endif
 
@@ -183,7 +184,7 @@ void setModelDefaults(uint8_t id)
   
   setVendorSpecificModelDefaults(id);
 
-#if !defined(STORAGE_MODELSLIST)
+#if !defined(COLORLCD)
   // EEPROM model indexes starting with 0
   id++;
 #endif

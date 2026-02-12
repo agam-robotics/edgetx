@@ -54,11 +54,12 @@
 #endif
 
 #if defined(COLORLCD)
+  #include "layout.h"
   #include "radio_calibration.h"
-  #include "view_text.h"
-  #include "theme_manager.h"
-  #include "switch_warn_dialog.h"
   #include "startup_shutdown.h"
+  #include "switch_warn_dialog.h"
+  #include "theme_manager.h"
+  #include "view_text.h"
 #endif
 
 #if defined(CROSSFIRE)
@@ -386,7 +387,7 @@ void generalDefault()
   memcpy(g_eeGeneral.bluetoothName, defaultName, sizeof(defaultName));
 #endif
 
-#if defined(STORAGE_MODELSLIST)
+#if defined(COLORLCD)
   strcpy(g_eeGeneral.currModelFilename, DEFAULT_MODEL_FILENAME);
 #endif
 
@@ -1567,6 +1568,10 @@ void edgeTxInit()
       waitSplash();
     }
 #endif // defined(GUI)
+
+#if defined(COLORLCD)
+  LayoutFactory::loadCustomScreens();
+#endif
 
 #if defined(BLUETOOTH_PROBE)
     extern volatile uint8_t btChipPresent;

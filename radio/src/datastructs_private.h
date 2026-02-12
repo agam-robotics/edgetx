@@ -600,7 +600,7 @@ PACK(struct ModelHeader {
   char      name[LEN_MODEL_NAME]; // must be first for eeLoadModelName
   uint8_t   modelId[NUM_MODULES];
   MODEL_HEADER_BITMAP_FIELD
-#if defined(STORAGE_MODELSLIST)
+#if defined(COLORLCD)
   char      labels[LABELS_LENGTH];
 #endif
 });

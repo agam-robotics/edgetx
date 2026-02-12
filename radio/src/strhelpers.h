@@ -62,7 +62,7 @@ char * strcat_zchar(char *dest, const char *name, uint8_t size, const char space
 
 #define strcatFlightmodeName(dest, idx) strcat_zchar(dest, g_model.flightModeData[idx].name, LEN_FLIGHT_MODE_NAME, 0, STR_FM, strlen(STR_FM), idx+1)
 
-#if !defined(STORAGE_MODELSLIST)
+#if !defined(COLORLCD)
 
 #define strcat_modelname(dest, idx, spaceSym)                                     \
   strcat_zchar(dest, modelHeaders[idx].name, LEN_MODEL_NAME, spaceSym, STR_MODEL, \

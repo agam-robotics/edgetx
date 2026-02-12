@@ -393,7 +393,7 @@ const char * writeModelYaml(const char* filename)
     return writeFileYaml(path, get_modeldata_nodes(), (uint8_t*)&g_model,0 );
 }
 
-#if !defined(STORAGE_MODELSLIST)
+#if !defined(COLORLCD)
 // EEPROM slot simulation based on file names:
 // - /MODELS/model[00-99].yml
 
@@ -408,7 +408,7 @@ void getModelNumberStr(uint8_t idx, char* model_idx)
 
 const char * writeModel()
 {
-#if defined(STORAGE_MODELSLIST)
+#if defined(COLORLCD)
   return writeModelYaml(g_eeGeneral.currModelFilename);
 #else
   char fname[MODELIDX_STRLEN + sizeof(YAML_EXT)];
@@ -418,7 +418,7 @@ const char * writeModel()
 #endif
 }
 
-#if !defined(STORAGE_MODELSLIST)
+#if !defined(COLORLCD)
 void loadModelHeader(uint8_t id, ModelHeader* header)
 {
   PartialModel partial;

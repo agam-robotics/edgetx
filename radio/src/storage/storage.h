@@ -61,7 +61,7 @@ void postRadioSettingsLoad();
 void preModelLoad();
 void postModelLoad(bool alarms);
 
-#if !defined(STORAGE_MODELSLIST)
+#if !defined(COLORLCD)
 extern ModelHeader modelHeaders[MAX_MODELS];
 
 void loadModelHeader(uint8_t id, ModelHeader *header);

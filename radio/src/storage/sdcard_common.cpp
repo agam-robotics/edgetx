@@ -103,7 +103,7 @@ void storageCheck(bool immediately)
     }
   }
 
-#if defined(STORAGE_MODELSLIST)
+#if defined(COLORLCD)
   static uint8_t retryLabelsCount = 0;
   if (storageDirtyMsk & EE_LABELS) {
     if (retryLabelsCount < retryLimit) {
@@ -130,7 +130,7 @@ void storageCheck(bool immediately)
     if (retryModelCount < retryLimit) {
       TRACE("SD card write model settings");
       const char * error = writeModel();
-#if defined(STORAGE_MODELSLIST)
+#if defined(COLORLCD)
       modelslist.updateCurrentModelCell();
 #endif
       if (error) {
@@ -149,7 +149,7 @@ void storageCheck(bool immediately)
   }
 }
 
-#if defined(STORAGE_MODELSLIST)
+#if defined(COLORLCD)
 const char * createModel()
 {
   preModelLoad();
@@ -166,22 +166,19 @@ const char * createModel()
     storageDirty(EE_GENERAL);
     storageDirty(EE_MODEL);
     storageCheck(true);
-#if defined(COLORLCD)
-    // Default layout loaded when setting model defaults - neeed to remove it.
-    LayoutFactory::deleteCustomScreens(true);
-#endif
   }
+
   postModelLoad(false);
 
   return g_eeGeneral.currModelFilename;
 }
 #endif
 
-const char* loadModel(char* filename, bool alarms)
+const char* loadModel(const char* filename, bool alarms, const char* filePath)
 {
   preModelLoad();
 
-  const char* error = readModel(filename, (uint8_t*)&g_model, sizeof(g_model));
+  const char* error = readModel(filename, (uint8_t*)&g_model, sizeof(g_model), filePath);
   if (error) {
     TRACE("loadModel error=%s", error);
 
@@ -191,32 +188,10 @@ const char* loadModel(char* filename, bool alarms)
     applyDefaultTemplate();
 
     storageCheck(true);
-    postModelLoad(false);
-    return error;
   }
 
-  postModelLoad(alarms);
-  return nullptr;
-}
-
-const char* loadModelTemplate(const char* fileName, const char* filePath)
-{
-  preModelLoad();
-  // Assuming that the template is located in current working directory
-  const char* error = readModel(fileName, (uint8_t*)&g_model, sizeof(g_model), filePath);
-  if (error) {
-    TRACE("loadModel error=%s", error);
-    // just get some clean memory state in "g_model" so the mixer can run safely
-    memset(&g_model, 0, sizeof(g_model));
-    applyDefaultTemplate();
-
-    storageCheck(true);
-    postModelLoad(false);
-    return error;
-  }
-
-  postModelLoad(false);
-  return nullptr;
+  postModelLoad(error ? false : alarms);
+  return error;
 }
 
 void storageReadAll()
@@ -225,7 +200,7 @@ void storageReadAll()
 
   memset(&g_eeGeneral, 0, sizeof(g_eeGeneral));
 
-#if defined(STORAGE_MODELSLIST)
+#if defined(COLORLCD)
   // Wipe models list in case
   // it's being reloaded after USB connection
   modelslist.clear();
@@ -238,7 +213,7 @@ void storageReadAll()
   if (loadRadioSettings() != nullptr) {
     storageEraseAll(true);
   }
-#if !defined(STORAGE_MODELSLIST)
+#if !defined(COLORLCD)
   else {
     loadModelHeaders();
   }
@@ -255,7 +230,7 @@ void storageReadAll()
   setLanguageFont(uiLangIdx);
 #endif
 
-#if defined(STORAGE_MODELSLIST)
+#if defined(COLORLCD)
   // and reload the list
   modelslist.load();
 
@@ -288,4 +263,3 @@ void checkModelIdUnique(uint8_t index, uint8_t module)
   //TODO
 }
 #endif
-

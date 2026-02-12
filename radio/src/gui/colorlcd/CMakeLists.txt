@@ -212,4 +212,5 @@ set(SRC ${SRC}
   ${RADIO_SRC_DIR}/thirdparty/lz4/lz4.c
 )
 
+set(COLORLCD YES)
 add_definitions(-DCOLORLCD)

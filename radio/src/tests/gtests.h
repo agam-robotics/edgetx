@@ -68,7 +68,7 @@ extern const char * nchar2string(const char * string, int size);
 
 inline void SYSTEM_RESET()
 {
-#if !defined(STORAGE_MODELSLIST)
+#if !defined(COLORLCD)
   memset(modelHeaders, 0, sizeof(modelHeaders));
 #endif
   generalDefault();

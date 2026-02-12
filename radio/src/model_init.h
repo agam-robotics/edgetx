@@ -24,7 +24,7 @@
 void clearInputs();
 void setDefaultInputs();
 
-#if defined(STORAGE_MODELSLIST)
+#if defined(COLORLCD)
   #define DEFAULT_MODEL_IDX 1
 #else
   #define DEFAULT_MODEL_IDX 0

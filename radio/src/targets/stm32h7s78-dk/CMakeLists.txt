@@ -16,7 +16,6 @@ set(TARGET_DIR stm32h7s78-dk)
 
 # set(PWR_BUTTON "PRESS" CACHE STRING "Pwr button type (PRESS/SWITCH)")
 set(SDCARD YES)
-set(STORAGE_MODELSLIST YES)
 # set(HAPTIC YES)
 set(GUI_DIR colorlcd)
 set(BITMAPS_DIR 800x480)

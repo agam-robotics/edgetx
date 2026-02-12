@@ -66,7 +66,7 @@ static int luaModelGetInfo(lua_State *L)
   lua_pushtablenstring(L, "bitmap", g_model.header.bitmap);
 #endif
 
-#if defined(STORAGE_MODELSLIST)
+#if defined(COLORLCD)
   lua_pushtablenstring(L, "labels", g_model.header.labels);
   lua_pushtablenstring(L, "filename", g_eeGeneral.currModelFilename);
 #else
