@@ -59,6 +59,7 @@
   #include "startup_shutdown.h"
   #include "switch_warn_dialog.h"
   #include "theme_manager.h"
+  #include "view_main.h"
   #include "view_text.h"
 #endif
 
@@ -1198,6 +1199,8 @@ void edgeTxResume()
   //TODO: needs to go into storageReadAll()
   TRACE("reloading theme");
   ThemePersistance::instance()->loadDefaultTheme();
+  LayoutFactory::loadCustomScreens();
+  ViewMain::instance()->show();
 #endif
 
   referenceSystemAudioFiles();
